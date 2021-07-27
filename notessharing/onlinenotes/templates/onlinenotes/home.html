@@ -1,0 +1,149 @@
+{% extends 'onlinenotes/base.html' %}
+{% load static %}
+{% block content %}
+<div class="page-header header-filter" data-parallax="true"
+style="background-image: url('/static/assets/img/notes.jpg')">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 class="title">Study Notes Sharing Site</h1>
+      <h4>Online study notes sharing</h4>
+      <br>
+      <a href="{% url 'stulogin' %}" class="btn btn-danger btn-raised btn-lg">
+        Login
+      </a>
+
+    </div>
+  </div>
+</div>
+</div>
+<div class="main main-raised">
+    <div class="container">
+        <div class="section text-center">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2 class="title">About </h2>
+                    <h5 class="description">Every 10 Years, India performs a Census of more than a Billion people. Till the last Census, This was an Offline Paper-Filled Process. This is our attempt to make the process digitalised and truly define the New Normal in one of the country's biggest endeavours.
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="section text-center container">
+            <h2 class="title">Our team</h2>
+            <div class="team">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="team-player">
+                            <div class="card card-plain">
+                                <div class="col-md-6 ml-auto mr-auto">
+                                    <img src="{% static 'assets/img/faces/vaishnavi.jpg' %}" alt="Thumbnail Image"
+                                        class="img-raised rounded-circle img-fluid">
+                                </div>
+                                <h4 class="card-title">Vaishnavi Mahajan
+                                    <br>
+                                    <small class="card-description text-muted">Full-Stack Web Developer</small>
+                                </h4>
+                                <div class="card-body">
+                                    <p class="card-description">Any sufficiently advanced technology is equivalent to magic.</p>
+                                </div>
+                                <div class="card-footer justify-content-center">
+                                    <a href="https://www.instagram.com/_vibhaa._/" target='_blank' class="btn btn-link btn-just-icon"><i
+                                            class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="team-player">
+                            <div class="card card-plain">
+                                <div class="col-md-6 ml-auto mr-auto">
+                                    <img src="{% static 'assets/img/faces/kajal.jpg' %}" alt="Thumbnail Image"
+                                        class="img-raised rounded-circle img-fluid">
+                                </div>
+                                <h4 class="card-title">Kajal Pawar
+                                    <br>
+                                    <small class="card-description text-muted">Front-End Developer</small>
+                                </h4>
+                                <div class="card-body">
+                                    <p class="card-description">Exploration is the engine that drives innovation. Innovation drives economic growth.
+                                        </p>
+                                </div>
+                                <div class="card-footer justify-content-center">
+                                    <a href="https://www.instagram.com/kajalpawar238/" target='_blank' class="btn btn-link btn-just-icon"><i
+                                            class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="team-player">
+                            <div class="card card-plain">
+                                <div class="col-md-6 ml-auto mr-auto">
+                                    <img src="{% static 'assets/img/faces/kshitij.jpg' %}" alt="Thumbnail Image"
+                                        class="img-raised rounded-circle img-fluid">
+                                </div>
+                                <h4 class="card-title">Kshitij Sabale
+                                    <br>
+                                    <small class="card-description text-muted">Backend Developer</small>
+                                </h4>
+                                <div class="card-body">
+                                    <p class="card-description">Innovation distinguishes between a leader and a follower.
+                                        </p>
+                                </div>
+                                <div class="card-footer justify-content-center">
+                                    <a href="https://www.instagram.com/sabalekshitij/" target='_blank' class="btn btn-link btn-just-icon"><i
+                                            class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="team-player">
+                            <div class="card card-plain">
+                                <div class="col-md-6 ml-auto mr-auto">
+                                    <img src="{% static 'assets/img/faces/teknath.jpg' %}" alt="Thumbnail Image"
+                                        class="img-raised rounded-circle img-fluid">
+                                </div>
+                                <h4 class="card-title">Teknath Jha
+                                    <br>
+                                    <small class="card-description text-muted">Full-Stack Developer</small>
+                                </h4>
+                                <div class="card-body">
+                                    <p class="card-description">Changes call for innovation, and innovation leads to progress.
+                                        </p>
+                                </div>
+                                <div class="card-footer justify-content-center">
+                                    <a href="https://www.instagram.com/teknath.jha/" target='_blank' class="btn btn-link btn-just-icon"><i
+                                            class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="team-player">
+                            <div class="card card-plain">
+                                <div class="col-md-6 ml-auto mr-auto">
+                                    <img src="{% static 'assets/img/faces/devang.jpg' %}" alt="Thumbnail Image"
+                                        class="img-raised rounded-circle img-fluid">
+                                </div>
+                                <h4 class="card-title">Devang Kamble
+                                    <br>
+                                    <small class="card-description text-muted">Full-Stack Developer</small>
+                                </h4>
+                                <div class="card-body">
+                                    <p class="card-description">Every once in a while, a new technology, an old problem, and a big idea turn into an innovation
+                                        </p>
+                                </div>
+                                <div class="card-footer justify-content-center">
+                                    <a href="https://www.instagram.com/devangkamble/" target='_blank' class="btn btn-link btn-just-icon"><i
+                                            class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
