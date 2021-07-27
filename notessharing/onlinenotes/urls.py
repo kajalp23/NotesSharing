@@ -15,4 +15,7 @@ urlpatterns = [
     path('studashboard/',views.studashboard,name="studashboard"),
     path('allnotes/',views.allnotes,name="allnotes"),
     path('deletenotes/<int:id>/',views.deletenotes,name="deletenotes"),
+    path('pendingnotes/',views.pendingnotes,name="pendingnotes"),
+    path('acceptednotes/',views.acceptednotes,name="acceptednotes"),
+    path('rejectednotes/',views.rejectednotes,name="rejectednotes"),
 ]

@@ -110,3 +110,15 @@ def deletenotes(request,id):
     fm = notes.objects.get(id=id)
     fm.delete()
     return HttpResponseRedirect('/notes/allnotes/')
+
+def pendingnotes(request):
+    allnote = notes.objects.all().filter(status="pending")
+    return render(request,'onlinenotes/pendingnotes.html',{'allnote':allnote})
+
+def acceptednotes(request):
+    allnote = notes.objects.all().filter(status="accepted")
+    return render(request,'onlinenotes/acceptednotes.html',{'allnote':allnote})
+
+def rejectednotes(request):
+    allnote = notes.objects.all().filter(status="rejected")
+    return render(request,'onlinenotes/rejectednotes.html',{'allnote':allnote})
