@@ -1,13 +1,24 @@
+from onlinenotes.models import notes
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as loginuser,logout as logoutuser
 from onlinenotes.models import signup
+from django.urls import reverse
+import mimetypes
 
 # Create your views here.
 
 def home(request):
     return render(request,'onlinenotes/home.html')
+
+def deleteuser(request,id):
+    fm = signup.objects.get(id=id)
+    fm.delete()
+    # fk = User.objects.get(id=id)
+    # fk.delete()
+    return HttpResponseRedirect('/notes/admindashboard/')
+
 
 def admindashboard(request):
     alluser = signup.objects.all()
@@ -90,3 +101,12 @@ def profile(request,id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     return render(request,'onlinenotes/profile.html')
+
+def allnotes(request):
+    allnote = notes.objects.all()
+    return render(request,'onlinenotes/allnotes.html',{'allnote':allnote})
+
+def deletenotes(request,id):
+    fm = notes.objects.get(id=id)
+    fm.delete()
+    return HttpResponseRedirect('/notes/allnotes/')

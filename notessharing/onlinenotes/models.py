@@ -15,7 +15,8 @@ class signup(models.Model):
 class notes(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     branch = models.CharField(max_length=30)
-    uploadingnotes = models.FileField()
+    uploadingnotes = models.FileField(upload_to='media/files/')
+    date = models.DateField()
     filetype = models.CharField(max_length=30)
     status = models.CharField(max_length=30)
     subject = models.CharField(max_length=30)
