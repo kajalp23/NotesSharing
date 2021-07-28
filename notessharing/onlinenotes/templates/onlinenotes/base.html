@@ -51,7 +51,7 @@
           
           {% if user.is_authenticated %}
           <li class="dropdown nav-item">
-            <span style="font-size:1rem; text-transform:uppercase;" class="nav-link">{{user.username}}</span>
+            <a href="{% url 'profile' user.id %}"><span style="font-size:1rem; text-transform:uppercase;color: white;" class="nav-link">{{user.username}}</span></a>
           </li>
           <li class="dropdown nav-item">
             <a href="{% url 'logout' %}" class="nav-link"><span style="font-size:1rem">LOGOUT</span></a>
