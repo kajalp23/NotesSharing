@@ -25,8 +25,10 @@
   <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate">
+
         <a class="navbar-brand" href="{% url 'admindashboard' %}">
           Dashboard </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -103,64 +105,30 @@
                                               <div class="col-md-12 pl-md-1">
                                                   <div class="form-group">
                                                       <label for="fname">First Name: </label>
-                                                      <input id="fname" type="text" class="form-control" value={{fm.first_name}} name="fname" required="required" />
+                                                      <input id="fname" type="text" class="form-control" value={{user.first_name}} name="fname" required="required" />
                                                   </div>
                                               </div>                                
                                           
                                               <div class="col-md-12 pl-md-1">
                                                   <div class="form-group">
                                                       <label for="lname">Last Name: </label>
-                                                      <input id="lname" type="text" class="form-control" value={{fm.last_name}} name="lname" required="required" />
+                                                      <input id="lname" type="text" class="form-control" value={{user.last_name}} name="lname" required="required" />
                                                   </div>
                                               </div>
                                           </div>
                                           
       
-                                          <div class="row">
-                                            {% if user.is_superuser %}
-
-                                            {% else %}
-                                              <div class="col-md-12 pl-md-1">
-                                                  <div class="form-group">
-                                                      <label for="contact">Contact: </label>
-                                                      <input id="contact" type="text" class="form-control" value={{fm.contact}} name="contact" required="required" />
-                                                  </div>
-                                              </div> 
-                                            {% endif %}                               
-                                          
+                                          <div class="row">                             
                                               <div class="col-md-12 pl-md-1">
                                                   <div class="form-group">
                                                       <label for="email">Email ID: </label>
-                                                      <input id="email" type="email" class="form-control" value={{fm.email}} name="email" required="required" />
+                                                      <input id="email" type="email" class="form-control" value={{user.email}} name="email" required="required" />
                                                   </div>
                                               </div>
                                               
                                           </div>
   
-                                         {% if user.is_superuser %}
-
-                                         {% else %}
-
-                                         <div class="row">
-                                            <div class="col-md-12 pl-md-1">
-                                                <div class="form-group">
-                                                    <label for="branch"> Branch: </label>
-                                                    <select name="branch" class="form-control" id="branch" value={{fm.branch}} required="required">
-                                                        <option value="1">CSE</option>
-                                                        <option value="2">IT</option>
-                                                        <option value="3">ENTC</option>
-                                                        <option value="4">EL</option>
-                                                        <option value="5">CIVIL</option>
-                                                        <option value="6">MECH</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                          
-                                         </div><br>
-
-                                         {% endif %}
-                                    
-                                          
+                                         
                                           <div class="card-footer">
                                             <button type="submit" class="btn btn-primary btn-lg" style="margin:auto;">Save Profile</button>
                                           </div>

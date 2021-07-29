@@ -7,7 +7,7 @@ from onlinenotes.models import signup
 import datetime
 from django.urls import reverse
 from django.db.models import Q
-import mimetypes
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
@@ -45,8 +45,13 @@ def logout(request):
     logoutuser(request)
     return HttpResponseRedirect('/')
 
-def studashboard(request):
-    return render(request,'onlinenotes/studashboard.html')
+def studashboard(request,id):
+    allnote = notes.objects.all().filter(status="accepted")
+    cnt = allnote.count()
+    user = User.objects.get(id=id)
+    mynote = notes.objects.all().filter(user=user)
+    cnt1 = mynote.count()
+    return render(request,'onlinenotes/studashboard.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
 
 def stulogin(request):
     if not request.user.is_authenticated:
@@ -56,7 +61,7 @@ def stulogin(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 loginuser(request, user)
-                return HttpResponseRedirect('/notes/studashboard/')
+                return studashboard(request,user.id)
     return render(request,'onlinenotes/stulogin.html')
 
 def signupuser(request):
@@ -80,16 +85,22 @@ def contact(request):
     return render(request, 'onlinenotes/contact.html', 
                   { 'mapbox_access_token': mapbox_access_token })
 
-def editprofilestu(request,id):
+def stueditprofile(request,id):
     if request.method=="POST":
         email = request.POST['email']
         contact = request.POST['contact']
         first_name = request.POST['fname']
         last_name = request.POST['lname']
         branch = request.POST['branch']
-        fm = User.objects.get(id=id).update(first_name=first_name)
-        signup.objects.get(user=fm).update()
-    return render(request,'onlinenotes/editprofile.html')
+        User.objects.filter(id=id).update(first_name=first_name,last_name=last_name,email=email)
+        fp = User.objects.get(id=id)
+        signup.objects.filter(user=fp).update(contact=contact,branch=branch)
+        user = User.objects.get(id=id)
+        fm = signup.objects.get(user=user)
+        return render(request,'onlinenotes/profile.html',{'fm':fm})
+    user = User.objects.get(id=id)
+    fm = signup.objects.get(user=user)
+    return render(request,'onlinenotes/stueditprofile.html',{'fm':fm})
 
 def editprofile(request,id):
     if request.method=="POST":
@@ -105,7 +116,12 @@ def editprofile(request,id):
 def profile(request,id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
-    return render(request,'onlinenotes/profile.html')
+    user = User.objects.get(id=id)
+    if not user.is_superuser:
+        fm = signup.objects.get(user=user)
+        return render(request,'onlinenotes/profile.html',{'fm':fm})
+    else:
+        return render(request,'onlinenotes/profile.html')
 
 def allnotes(request):
     allnote = notes.objects.all()
@@ -174,11 +190,16 @@ def assignstatus(request,id):
     return render(request,'onlinenotes/assignstatus.html',{'noteid':id})
 
 def uploadnotes(request,id):
+    allnote = notes.objects.all().filter(status="accepted")
+    cnt = allnote.count()
+    user = User.objects.get(id=id)
+    mynote = notes.objects.all().filter(user=user)
+    cnt1 = mynote.count()
     if request.method=="POST":
         branch = request.POST['branch']
         subject = request.POST['subject']
         filetype= request.POST['filetype']
-        uploadingnotes = request.POST['uploadingnotes']
+        uploadingnotes = request.FILES.get('uploadingnotes')
         description = request.POST['description']
         status = "pending"
         date = datetime.date.today()
@@ -186,8 +207,37 @@ def uploadnotes(request,id):
         fm = notes.objects.create(user=user,branch=branch,subject=subject,filetype=filetype,
         uploadingnotes=uploadingnotes,description=description,status=status,date=date)
         fm.save()
-        return HttpResponseRedirect('/notes/studashboard')
-    return render(request,'onlinenotes/uploadnotes.html')
+        return render(request,'onlinenotes/studashboard.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
+    return render(request,'onlinenotes/uploadnotes.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
 
-def changepass(request):
-    return render(request,'onlinenotes/changepass.html')
+def changepass(request,id):
+    allnote = notes.objects.all().filter(status="accepted")
+    cnt = allnote.count()
+    user = User.objects.get(id=id)
+    mynote = notes.objects.all().filter(user=user)
+    cnt1 = mynote.count()
+    if request.method=="POST":
+        newpass = request.POST['newpass']
+        confpass = request.POST['confpass']
+        if newpass!=confpass:
+            return render(request,'onlinenotes/changepass.html',{'msg':'Password is not matching','allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
+        user = User.objects.filter(id=id)
+        user.update(password=newpass)
+        return render(request,'onlinenotes/changepass.html',{'msg':'Password Updated Successfully','allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
+    return render(request,'onlinenotes/changepass.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
+
+def viewallnotes(request,id):
+    allnote = notes.objects.all().filter(status="accepted")
+    cnt = allnote.count()
+    user = User.objects.get(id=id)
+    mynote = notes.objects.all().filter(user=user)
+    cnt1 = mynote.count()
+    return render(request,'onlinenotes/viewallnotes.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
+
+def viewmynotes(request,id):
+    allnote = notes.objects.all().filter(status="accepted")
+    cnt = allnote.count()
+    user = User.objects.get(id=id)
+    mynote = notes.objects.all().filter(user=user)
+    cnt1 = mynote.count()
+    return render(request,'onlinenotes/viewmynotes.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})

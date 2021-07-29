@@ -145,55 +145,55 @@
         <!-- Example DataTables Card-->
         <div class="card mb-3">
           <div class="card-header">
-            <i class="fa fa-table"></i> All Notes</div>
+            <i class="fa fa-table"></i> My Notes</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                  <tr>
-                    <th>Sr. No</th>
-                    <th>Email</th>
-                    <th>Date</th>
-                    <th>Branch</th>
-                    <th>Subject</th>
-                    <th>Download Notes</th>
-                    <th>File Type</th>
-                    <th>Status</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>Sr. No</th>
-                    <th>Email</th>
-                    <th>Date</th>
-                    <th>Branch</th>
-                    <th>Subject</th>
-                    <th>Download Notes</th>
-                    <th>File Type</th>
-                    <th>Status</th>
-                    <th>Description</th>
-                  </tr>
-                </tfoot>
-                <tbody>
-
-                  {% for i in allnote %}
-
                     <tr>
-                      <td>{{i.id}}</td>
-                      <td>{{i.user.email}}</td>
-                      <td>{{i.date}}</td>
-                      <td>{{i.branch}}</td>
-                      <td>{{i.subject}}</td>
-                      <td><a href="{{ i.uploadingnotes.url }}">{{ i.uploadingnotes.name }}</a></td>
-                      <td>{{i.filetype}}</td>
-                      <td>{{i.status}}</td>
-                      <td>{{i.description}}</td>
+                      <th>Sr. No</th>
+                      <th>Email</th>
+                      <th>Date</th>
+                      <th>Branch</th>
+                      <th>Subject</th>
+                      <th>Download Notes</th>
+                      <th>File Type</th>
+                      <th>Status</th>
+                      <th>Description</th>
                     </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Sr. No</th>
+                      <th>Email</th>
+                      <th>Date</th>
+                      <th>Branch</th>
+                      <th>Subject</th>
+                      <th>Download Notes</th>
+                      <th>File Type</th>
+                      <th>Status</th>
+                      <th>Description</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+  
+                    {% for i in mynote %}
+  
+                      <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.user.email}}</td>
+                        <td>{{i.date}}</td>
+                        <td>{{i.branch}}</td>
+                        <td>{{i.subject}}</td>
+                        <td><a href="{{ i.uploadingnotes.url }}">{{ i.uploadingnotes.name }}</a></td>
+                        <td>{{i.filetype}}</td>
+                        <td>{{i.status}}</td>
+                        <td>{{i.description}}</td>
+                      </tr>
 
-                  {% endfor %}
-                  
-            </table>
+                    {% endfor %}
+
+              </table>
             </div>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>

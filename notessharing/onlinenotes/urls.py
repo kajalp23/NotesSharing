@@ -11,8 +11,7 @@ urlpatterns = [
     path('profile/<int:id>/',views.profile,name="profile"),
     path('editprofile/<int:id>/',views.editprofile,name="editprofile"),
     path('delete/<int:id>/',views.deleteuser,name="delete"),
-    path('admindashboard/',views.admindashboard,name="admindashboard"),
-    path('studashboard/',views.studashboard,name="studashboard"),
+    path('admindashboard/',views.admindashboard,name="admindashboard"),   
     path('allnotes/',views.allnotes,name="allnotes"),
     path('deletenotes/<int:id>/',views.deletenotes,name="deletenotes"),
     path('pendingnotes/',views.pendingnotes,name="pendingnotes"),
@@ -22,6 +21,10 @@ urlpatterns = [
     path('assignstatus/<int:id>/', views.assignstatus, name='assignstatus'),
 
     #student/teacher dashboard
+    path('studashboard/<int:id>',views.studashboard,name="studashboard"),
+    path('stueditprofile/<int:id>/',views.stueditprofile,name="stueditprofile"),
     path('uploadnotes/<int:id>/', views.uploadnotes, name='uploadnotes'),
-    path('changepass/', views.changepass, name='changepass'),
+    path('changepass/<int:id>/', views.changepass, name='changepass'),
+    path('viewallnotes/<int:id>/', views.viewallnotes, name='viewallnotes'),
+    path('viewmynotes/<int:id>/', views.viewmynotes, name='viewmynotes'),
 ]
