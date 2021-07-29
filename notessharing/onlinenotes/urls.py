@@ -18,4 +18,10 @@ urlpatterns = [
     path('pendingnotes/',views.pendingnotes,name="pendingnotes"),
     path('acceptednotes/',views.acceptednotes,name="acceptednotes"),
     path('rejectednotes/',views.rejectednotes,name="rejectednotes"),
+    path('search/', views.search, name='search'),
+    path('assignstatus/<int:id>/', views.assignstatus, name='assignstatus'),
+
+    #student/teacher dashboard
+    path('uploadnotes/<int:id>/', views.uploadnotes, name='uploadnotes'),
+    path('changepass/', views.changepass, name='changepass'),
 ]

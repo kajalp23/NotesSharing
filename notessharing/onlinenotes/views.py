@@ -4,7 +4,9 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as loginuser,logout as logoutuser
 from onlinenotes.models import signup
+import datetime
 from django.urls import reverse
+from django.db.models import Q
 import mimetypes
 
 # Create your views here.
@@ -22,7 +24,12 @@ def deleteuser(request,id):
 
 def admindashboard(request):
     alluser = signup.objects.all()
-    return render(request,'onlinenotes/admindashboard.html',{'alluser':alluser})
+    accept = notes.objects.filter(status='accepted').count()
+    all = notes.objects.all().count()
+    reject = notes.objects.filter(status='rejected').count()
+    pend = notes.objects.filter(status='pending').count()
+    context={'alluser':alluser,'accept':accept,'all':all,'reject':reject,'pend':pend}
+    return render(request,'onlinenotes/admindashboard.html',context)
 
 def login(request):
     if request.method=="POST":
@@ -80,10 +87,8 @@ def editprofilestu(request,id):
         first_name = request.POST['fname']
         last_name = request.POST['lname']
         branch = request.POST['branch']
-
         fm = User.objects.get(id=id).update(first_name=first_name)
         signup.objects.get(user=fm).update()
-
     return render(request,'onlinenotes/editprofile.html')
 
 def editprofile(request,id):
@@ -104,7 +109,12 @@ def profile(request,id):
 
 def allnotes(request):
     allnote = notes.objects.all()
-    return render(request,'onlinenotes/allnotes.html',{'allnote':allnote})
+    accept = notes.objects.filter(status='accepted').count()
+    all = notes.objects.all().count()
+    reject = notes.objects.filter(status='rejected').count()
+    pend = notes.objects.filter(status='pending').count()
+    context={'allnote':allnote,'accept':accept,'all':all,'reject':reject,'pend':pend}
+    return render(request,'onlinenotes/allnotes.html',context)
 
 def deletenotes(request,id):
     fm = notes.objects.get(id=id)
@@ -113,12 +123,71 @@ def deletenotes(request,id):
 
 def pendingnotes(request):
     allnote = notes.objects.all().filter(status="pending")
-    return render(request,'onlinenotes/pendingnotes.html',{'allnote':allnote})
+    accept = notes.objects.filter(status='accepted').count()
+    all = notes.objects.all().count()
+    reject = notes.objects.filter(status='rejected').count()
+    pend = notes.objects.filter(status='pending').count()
+    context={'allnote':allnote,'accept':accept,'all':all,'reject':reject,'pend':pend}
+    return render(request,'onlinenotes/pendingnotes.html',context)
 
 def acceptednotes(request):
     allnote = notes.objects.all().filter(status="accepted")
-    return render(request,'onlinenotes/acceptednotes.html',{'allnote':allnote})
+    accept = notes.objects.filter(status='accepted').count()
+    all = notes.objects.all().count()
+    reject = notes.objects.filter(status='rejected').count()
+    pend = notes.objects.filter(status='pending').count()
+    context={'allnote':allnote,'accept':accept,'all':all,'reject':reject,'pend':pend}
+    return render(request,'onlinenotes/acceptednotes.html',context)
 
 def rejectednotes(request):
     allnote = notes.objects.all().filter(status="rejected")
-    return render(request,'onlinenotes/rejectednotes.html',{'allnote':allnote})
+    accept = notes.objects.filter(status='accepted').count()
+    all = notes.objects.all().count()
+    reject = notes.objects.filter(status='rejected').count()
+    pend = notes.objects.filter(status='pending').count()
+    context={'allnote':allnote,'accept':accept,'all':all,'reject':reject,'pend':pend}
+    return render(request,'onlinenotes/rejectednotes.html',context)
+
+def search(request):
+    results = []
+    if request.method == "GET":
+        query = request.GET.get('subquery')
+        if query == '':
+            query = 'None'
+        getuser = User.objects.get(first_name=query)
+        results = signup.objects.filter(user=getuser)
+    accept = notes.objects.filter(status='accepted').count()
+    all = notes.objects.all().count()
+    reject = notes.objects.filter(status='rejected').count()
+    pend = notes.objects.filter(status='pending').count()
+    print(query)
+    print(results)
+    context={'query': query, 'results': results,'accept':accept,'all':all,'reject':reject,'pend':pend}
+    return render(request, 'onlinenotes/searchuser.html', context)
+
+def assignstatus(request,id):
+    if request.method=="POST":
+        fm = notes.objects.filter(id=id)
+        status = request.POST['status']
+        fm.update(status=status)
+        return HttpResponseRedirect('/notes/allnotes')
+    return render(request,'onlinenotes/assignstatus.html',{'noteid':id})
+
+def uploadnotes(request,id):
+    if request.method=="POST":
+        branch = request.POST['branch']
+        subject = request.POST['subject']
+        filetype= request.POST['filetype']
+        uploadingnotes = request.POST['uploadingnotes']
+        description = request.POST['description']
+        status = "pending"
+        date = datetime.date.today()
+        user = User.objects.get(id=id)
+        fm = notes.objects.create(user=user,branch=branch,subject=subject,filetype=filetype,
+        uploadingnotes=uploadingnotes,description=description,status=status,date=date)
+        fm.save()
+        return HttpResponseRedirect('/notes/studashboard')
+    return render(request,'onlinenotes/uploadnotes.html')
+
+def changepass(request):
+    return render(request,'onlinenotes/changepass.html')

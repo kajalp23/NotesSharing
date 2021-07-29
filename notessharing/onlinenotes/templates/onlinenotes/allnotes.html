@@ -48,74 +48,24 @@
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-wrench"></i>
-              <span class="nav-link-text">Change Password</span>
+              <span class="nav-link-text">Notes</span>
             </a>
             <ul class="sidenav-second-level collapse" id="collapseComponents">
               <li>
-                <a href="{% url 'home' %}">Navbar</a>
+                <a href="{% url 'allnotes' %}">All Notes</a>
               </li>
               <li>
-                <a href="{% url 'home' %}">Cards</a>
+                <a href="{% url 'pendingnotes' %}">Pending Notes</a>
+              </li>
+              <li>
+                <a href="{% url 'acceptednotes' %}">Accepted Notes</a>
+              </li>
+              <li>
+                <a href="{% url 'rejectednotes' %}">Rejected Notes</a>
               </li>
             </ul>
           </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-              <i class="fa fa-fw fa-file"></i>
-              <span class="nav-link-text">Example Pages</span>
-            </a>
-            <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-              <li>
-                <a href="{% url 'home' %}">Login Page</a>
-              </li>
-              <li>
-                <a href="{% url 'home' %}">Registration Page</a>
-              </li>
-              <li>
-                <a href="{% url 'home' %}">Forgot Password Page</a>
-              </li>
-              <li>
-                <a href="{% url 'home' %}">Blank Page</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-              <i class="fa fa-fw fa-sitemap"></i>
-              <span class="nav-link-text">Menu Levels</span>
-            </a>
-            <ul class="sidenav-second-level collapse" id="collapseMulti">
-              <li>
-                <a href="#">Second Level Item</a>
-              </li>
-              <li>
-                <a href="#">Second Level Item</a>
-              </li>
-              <li>
-                <a href="#">Second Level Item</a>
-              </li>
-              <li>
-                <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-                <ul class="sidenav-third-level collapse" id="collapseMulti2">
-                  <li>
-                    <a href="#">Third Level Item</a>
-                  </li>
-                  <li>
-                    <a href="#">Third Level Item</a>
-                  </li>
-                  <li>
-                    <a href="#">Third Level Item</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-            <a class="nav-link" href="#">
-              <i class="fa fa-fw fa-link"></i>
-              <span class="nav-link-text">Link</span>
-            </a>
-          </li>
+         
         </ul>
         <ul class="navbar-nav sidenav-toggler">
           <li class="nav-item">
@@ -124,84 +74,7 @@
             </a>
           </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-fw fa-envelope"></i>
-              <span class="d-lg-none">Messages
-                <span class="badge badge-pill badge-primary">12 New</span>
-              </span>
-              <span class="indicator text-primary d-none d-lg-block">
-                <i class="fa fa-fw fa-circle"></i>
-              </span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-              <h6 class="dropdown-header">New Messages:</h6>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <strong>David Miller</strong>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <strong>Jane Smith</strong>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <strong>John Doe</strong>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item small" href="#">View all messages</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-fw fa-bell"></i>
-              <span class="d-lg-none">Alerts
-                <span class="badge badge-pill badge-warning">6 New</span>
-              </span>
-              <span class="indicator text-warning d-none d-lg-block">
-                <i class="fa fa-fw fa-circle"></i>
-              </span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-              <h6 class="dropdown-header">New Alerts:</h6>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <span class="text-success">
-                  <strong>
-                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                </span>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <span class="text-danger">
-                  <strong>
-                    <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
-                </span>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <span class="text-success">
-                  <strong>
-                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                </span>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item small" href="#">View all alerts</a>
-            </div>
-          </li>
+        <ul class="navbar-nav ml-auto">          
           <li class="nav-item">
             <form class="form-inline my-2 my-lg-0 mr-lg-2">
               <div class="input-group">
@@ -241,7 +114,7 @@
                 <div class="mr-5">All Notes</div>
               </div>
               <a class="card-footer text-white clearfix large z-1" href="{% url 'allnotes' %}">
-                <span class="float-left">10</span>
+                <span class="float-left">{{all}}</span>
                
               </a>
             </div>
@@ -255,7 +128,7 @@
                 <div class="mr-5">Pending Notes</div>
               </div>
               <a class="card-footer text-white clearfix large z-1" href="{% url 'pendingnotes' %}">
-                <span class="float-left">10</span>
+                <span class="float-left">{{pend}}</span>
                 
               </a>
             </div>
@@ -269,7 +142,7 @@
                 <div class="mr-5">Accepted Notes</div>
               </div>
               <a class="card-footer text-white clearfix large z-1" href="{% url 'acceptednotes' %}">
-                <span class="float-left">10</span>
+                <span class="float-left">{{accept}}</span>
                 
               </a>
             </div>
@@ -283,7 +156,7 @@
                 <div class="mr-5">Rejected Notes</div>
               </div>
               <a class="card-footer text-white clearfix large z-1" href="{% url 'rejectednotes' %}">
-                <span class="float-left">10</span>
+                <span class="float-left">{{reject}}</span>
                 
               </a>
             </div>
@@ -341,7 +214,7 @@
                       <td>{{i.filetype}}</td>
                       <td>{{i.description}}</td>
                       <td>{{i.status}}</td>
-                      <td><form method="POST"><a href="{% url 'delete' i.id %}" class="btn btn-warning btn-lg">Assign Status</a></form></td>
+                      <td><form method="POST"><a href="{% url 'assignstatus' i.id %}" class="btn btn-warning btn-lg">Assign Status</a></form></td>
                       <td><form method="POST"><a href="{% url 'deletenotes' i.id %}" class="btn btn-warning btn-lg">Delete</a></form></td>
                     </tr>
 
