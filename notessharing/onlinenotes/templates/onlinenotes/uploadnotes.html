@@ -147,7 +147,7 @@
     <div class="card-header">
       <i class="fa fa-table"></i> Upload Notes</div>
   <div class="card-body" style="padding-left: 20px;">
-      <form class="form" method="POST" action="">
+      <form class="form" method="POST" action="" enctype="multipart/form-data">
           {% csrf_token %}
 
               <div class="row">
@@ -155,12 +155,12 @@
                       <div class="form-group">
                           <label for="branch"> Branch: </label>
                           <select name="branch" class="form-control" id="branch"  required="required">
-                              <option value="1">CSE</option>
-                              <option value="2">IT</option>
-                              <option value="3">ENTC</option>
-                              <option value="4">EL</option>
-                              <option value="5">CIVIL</option>
-                              <option value="6">MECH</option>
+                              <option value="CSE">CSE</option>
+                              <option value="IT">IT</option>
+                              <option value="ENTC">ENTC</option>
+                              <option value="EL">EL</option>
+                              <option value="CIVIL">CIVIL</option>
+                              <option value="MECH">MECH</option>
                           </select>
                       </div>
                   </div>

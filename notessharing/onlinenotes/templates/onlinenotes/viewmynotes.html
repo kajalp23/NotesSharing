@@ -180,12 +180,12 @@
                     {% for i in mynote %}
   
                       <tr>
-                        <td>{{i.id}}</td>
+                        <td>{{forloop.counter}}</td>
                         <td>{{i.user.email}}</td>
                         <td>{{i.date}}</td>
                         <td>{{i.branch}}</td>
                         <td>{{i.subject}}</td>
-                        <td><a href="{{ i.uploadingnotes.url }}">{{ i.uploadingnotes.name }}</a></td>
+                        <td><a href="{{ i.uploadingnotes.url }}">{{ i.uploadingnotes }}</a></td>
                         <td>{{i.filetype}}</td>
                         <td>{{i.status}}</td>
                         <td>{{i.description}}</td>

@@ -199,7 +199,7 @@
                   {% for i in alluser %}
 
                     <tr>
-                      <td>{{i.id}}</td>
+                      <td>{{forloop.counter}}</td>
                       <td>{{i.user.first_name}}</td>
                       <td>{{i.user.last_name}}</td>
                       <td>{{i.user.email}}</td>
