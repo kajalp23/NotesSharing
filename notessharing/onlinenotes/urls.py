@@ -27,6 +27,6 @@ urlpatterns = [
     path('changepass/<int:id>/', views.changepass, name='changepass'),
     path('viewallnotes/<int:id>/', views.viewallnotes, name='viewallnotes'),
     path('viewmynotes/<int:id>/', views.viewmynotes, name='viewmynotes'),
-
+    path('searchnotes/', views.searchnotes, name='searchnotes'),
 
 ]

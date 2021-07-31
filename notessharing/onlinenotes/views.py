@@ -86,12 +86,12 @@ def stueditprofile(request,id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     if request.method=="POST":
+        first_name = request.POST['fname']
+        last_name = request.POST.get('lname')
         email = request.POST['email']
         contact = request.POST['contact']
-        first_name = request.POST['fname']
-        last_name = request.POST['lname']
         branch = request.POST['branch']
-        User.objects.filter(id=id).update(first_name=first_name,last_name=last_name,email=email)
+        User.objects.filter(username=request.user.username).update(first_name=first_name,last_name=last_name,email=email)
         fp = User.objects.get(id=id)
         signup.objects.filter(user=fp).update(contact=contact,branch=branch)
         user = User.objects.get(id=id)
@@ -171,14 +171,18 @@ def search(request):
         query = request.GET.get('subquery')
         if query == '':
             query = 'None'
-        getuser = User.objects.get(first_name=query)
-        results = signup.objects.filter(user=getuser)
+        try:
+            getuser = User.objects.get(first_name=query)
+        except:
+            getuser = None
+        if getuser is not None:
+            results = signup.objects.filter(user=getuser)
+        else:
+            results = None
     accept = notes.objects.filter(status='accepted').count()
     all = notes.objects.all().count()
     reject = notes.objects.filter(status='rejected').count()
     pend = notes.objects.filter(status='pending').count()
-    print(query)
-    print(results)
     context={'query': query, 'results': results,'accept':accept,'all':all,'reject':reject,'pend':pend}
     return render(request, 'onlinenotes/searchuser.html', context)
 
@@ -250,6 +254,25 @@ def viewmynotes(request,id):
     mynote = notes.objects.all().filter(user=user)
     cnt1 = mynote.count()
     return render(request,'onlinenotes/viewmynotes.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
+
+def searchnotes(request):
+    results = []
+    if request.method == "GET":
+        query = request.GET.get('subquery')
+        if query == '':
+            query = 'None'
+        try:
+            results = notes.objects.filter(subject=query,status="accepted")
+        except:
+            results = None
+    allnote = notes.objects.all().filter(status="accepted")
+    cnt = allnote.count()
+    user = User.objects.get(id=request.user.id)
+    mynote = notes.objects.all().filter(user=user)
+    cnt1 = mynote.count()
+    context={'query': query, 'results': results,'allnote':allnote,'cnt':cnt,'mynote':mynote,'cnt1':cnt1}
+    return render(request, 'onlinenotes/searchnotes.html', context)
+
 
 #Chat App
 

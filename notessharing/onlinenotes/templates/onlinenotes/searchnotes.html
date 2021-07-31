@@ -16,7 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css" integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/admindash.css' %}">
-    <title>Notes</title>
+    <title>Dashboard</title>
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
     <!-- Navigation-->
@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-            <a class="nav-link" href="{% url 'admindashboard' %}">
+            <a class="nav-link" href="{% url 'studashboard' user.id %}">
               <i class="fa fa-fw fa-dashboard"></i>
               <span class="nav-link-text">Dashboard</span>
             </a>
@@ -40,31 +40,37 @@
             </a>
           </li>
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-            <a class="nav-link" href="{% url 'editprofile' user.id %}">
+            <a class="nav-link" href="{% url 'stueditprofile' user.id %}">
               <i class="fa fa-fw fa-table"></i>
               <span class="nav-link-text">Edit Profile</span>
             </a>
           </li>
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+            <a href="{% url 'changepass' user.id %}" class="nav-link">
               <i class="fa fa-fw fa-wrench"></i>
+              <span class="nav-link-text">Change Password</span>
+            </a>
+            
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+              <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">Notes</span>
             </a>
-            <ul class="sidenav-second-level collapse" id="collapseComponents">
+            <ul class="sidenav-second-level collapse" id="collapseExamplePages">
               <li>
-                <a href="{% url 'allnotes' %}">All Notes</a>
+                <a href="{% url 'uploadnotes' user.id %}">Upload Notes</a>
               </li>
               <li>
-                <a href="{% url 'pendingnotes' %}">Pending Notes</a>
+                <a href="{% url 'viewallnotes' user.id %}">View All Notes</a>
               </li>
               <li>
-                <a href="{% url 'acceptednotes' %}">Accepted Notes</a>
+                <a href="{% url 'viewmynotes' user.id %}">View My notes</a>
               </li>
-              <li>
-                <a href="{% url 'rejectednotes' %}">Rejected Notes</a>
-              </li>
+              
             </ul>
           </li>
+          
         </ul>
         <ul class="navbar-nav sidenav-toggler">
           <li class="nav-item">
@@ -75,11 +81,11 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            <form class="form-inline my-2 my-lg-0 mr-lg-2" action="{% url 'searchnotes' %}" method="get">
               <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for...">
+                <input class="form-control" type="text" name="subquery" placeholder="Search for...">
                 <span class="input-group-append">
-                  <button class="btn btn-primary" type="button">
+                  <button class="btn btn-primary" type="submit">
                     <i class="fa fa-search"></i>
                   </button>
                 </span>
@@ -112,8 +118,8 @@
                 </div>
                 <div class="mr-5">All Notes</div>
               </div>
-              <a class="card-footer text-white clearfix large z-1" href="{% url 'allnotes' %}">
-                <span class="float-left">{{all}}</span>
+              <a class="card-footer text-white clearfix large z-1" href="{% url 'viewallnotes' user.id %}">
+                <span class="float-left">{{cnt}}</span>
                
               </a>
             </div>
@@ -124,48 +130,22 @@
                 <div class="card-body-icon">
                   <i class="fa fa-fw fa-list"></i>
                 </div>
-                <div class="mr-5">Pending Notes</div>
+                <div class="mr-5">My Notes</div>
               </div>
-              <a class="card-footer text-white clearfix large z-1" href="{% url 'pendingnotes' %}">
-                <span class="float-left">{{pend}}</span>
+              <a class="card-footer text-white clearfix large z-1" href="{% url 'viewmynotes' user.id %}">
+                <span class="float-left">{{cnt1}}</span>
                 
               </a>
             </div>
           </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-success o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-shopping-cart"></i>
-                </div>
-                <div class="mr-5">Accepted Notes</div>
-              </div>
-              <a class="card-footer text-white clearfix large z-1" href="{% url 'acceptednotes' %}">
-                <span class="float-left">{{accept}}</span>
-                
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-danger o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-support"></i>
-                </div>
-                <div class="mr-5">Rejected Notes</div>
-              </div>
-              <a class="card-footer text-white clearfix large z-1" href="{% url 'rejectednotes' %}">
-                <span class="float-left">{{reject}}</span>
-                
-              </a>
-            </div>
-          </div>
+          
+          
         </div>
        
         <!-- Example DataTables Card-->
         <div class="card mb-3">
           <div class="card-header">
-            <i class="fa fa-table"></i> Rejected Notes</div>
+            <i class="fa fa-table"></i> All Notes</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -179,9 +159,6 @@
                     <th>Download Notes</th>
                     <th>File Type</th>
                     <th>Description</th>
-                    <th>Status</th>
-                    <th>Assign Status</th>
-                   
                   </tr>
                 </thead>
                 <tfoot>
@@ -194,13 +171,11 @@
                     <th>Download Notes</th>
                     <th>File Type</th>
                     <th>Description</th>
-                    <th>Status</th>
-                    <th>Assign Status</th>
                   </tr>
                 </tfoot>
                 <tbody>
 
-                  {% for i in allnote %}
+                  {% for i in results %}
 
                     <tr>
                       <td>{{forloop.counter}}</td>
@@ -211,28 +186,31 @@
                       <td><a href="{{ i.uploadingnotes.url }}">{{ i.uploadingnotes }}</a></td>
                       <td>{{i.filetype}}</td>
                       <td>{{i.description}}</td>
-                      <td>{{i.status}}</td>
-                      <td><form method="POST"><a href="{% url 'assignstatus' i.id %}" class="btn btn-warning btn-lg">Assign Status</a></form></td>
                     </tr>
 
                   {% endfor %}
-
                   
-                 
-                </tbody>
-              </table>
+            </table>
             </div>
           </div>
+
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+
+          
+          
         </div>
       </div>
       <!-- /.container-fluid-->
       <!-- /.content-wrapper-->
       <footer class="sticky-footer">
         <div class="container">
-          <div class="text-center">
-            <small>Copyright © Your Website 2018</small>
+          <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">Copyright © Your Website 2018</div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-1"><a href="{% url 'chat' %}"><i class="fa fa-comments fa-2x" aria-hidden="true"></i></a></div>
           </div>
+          
         </div>
       </footer>
       <!-- Scroll to Top Button-->
