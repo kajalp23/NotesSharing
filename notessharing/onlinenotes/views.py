@@ -1,13 +1,11 @@
-from onlinenotes.models import notes
+from onlinenotes.models import notes,Message,Room
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as loginuser,logout as logoutuser
 from onlinenotes.models import signup
 import datetime
-from django.urls import reverse
-from django.db.models import Q
-from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 
@@ -252,3 +250,43 @@ def viewmynotes(request,id):
     mynote = notes.objects.all().filter(user=user)
     cnt1 = mynote.count()
     return render(request,'onlinenotes/viewmynotes.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
+
+#Chat App
+
+def chat(request):
+    return render(request, 'onlinenotes/chat.html')
+
+def room(request, room):
+    username = request.GET.get('username')
+    room_details = Room.objects.get(name=room)
+    return render(request, 'onlinenotes/room.html', {
+        'username': username,
+        'room': room,
+        'room_details': room_details
+    })
+
+def checkview(request):
+    room = request.POST['room_name']
+    username = request.POST['username']
+
+    if Room.objects.filter(name=room).exists():
+        return redirect('/'+room+'/?username='+username)
+    else:
+        new_room = Room.objects.create(name=room)
+        new_room.save()
+        return redirect('/'+room+'/?username='+username)
+
+def send(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+
+    new_message = Message.objects.create(value=message, user=username, room=room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+def getMessages(request, room):
+    room_details = Room.objects.get(name=room)
+
+    messages = Message.objects.filter(room=room_details.id)
+    return JsonResponse({"messages":list(messages.values())})
