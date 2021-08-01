@@ -1,4 +1,5 @@
-from onlinenotes.models import notes,Message,Room
+
+from onlinenotes.models import notes,Message,Room,notification
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
@@ -49,7 +50,8 @@ def studashboard(request,id):
     user = User.objects.get(id=id)
     mynote = notes.objects.all().filter(user=user)
     cnt1 = mynote.count()
-    return render(request,'onlinenotes/studashboard.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote})
+    noti = notification.objects.all().order_by("date").reverse()
+    return render(request,'onlinenotes/studashboard.html',{'allnote':allnote,'cnt':cnt,'cnt1':cnt1,'mynote':mynote,'noti':noti})
 
 def stulogin(request):
     if not request.user.is_authenticated:
@@ -191,10 +193,16 @@ def assignstatus(request,id):
         fm = notes.objects.filter(id=id)
         status = request.POST['status']
         fm.update(status=status)
+        if status=="accepted":
+            fp = notes.objects.get(id=id)
+            msg = fp.user.username + " added notes"
+            p = notification(msg=msg,url=fp.uploadingnotes.url)
+            print("url" + fp.uploadingnotes.url)
+            p.save()
         return HttpResponseRedirect('/notes/allnotes')
     return render(request,'onlinenotes/assignstatus.html',{'noteid':id})
 
-def uploadnotes(request,id):   
+def uploadnotes(request,id): 
     if request.method=="POST":
         branch = request.POST['branch']
         subject = request.POST['subject']

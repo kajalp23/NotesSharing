@@ -35,3 +35,8 @@ class Message(models.Model):
     date = models.DateTimeField(default=datetime.now, blank=True)
     user = models.CharField(max_length=1000000)
     room = models.CharField(max_length=1000000)
+
+class notification(models.Model):
+    url = models.URLField(null=True)
+    msg = models.CharField(max_length=100)
+    date = models.DateField(default=datetime.now)
