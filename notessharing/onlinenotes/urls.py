@@ -29,4 +29,6 @@ urlpatterns = [
     path('viewmynotes/<int:id>/', views.viewmynotes, name='viewmynotes'),
     path('searchnotes/', views.searchnotes, name='searchnotes'),
 
+
+
 ]

@@ -281,7 +281,10 @@ def chat(request):
 
 def room(request, room):
     username = request.GET.get('username')
-    room_details = Room.objects.get(name=room)
+    try:
+        room_details = Room.objects.get(name=room)
+    except:
+        room_details = None
     return render(request, 'onlinenotes/room.html', {
         'username': username,
         'room': room,

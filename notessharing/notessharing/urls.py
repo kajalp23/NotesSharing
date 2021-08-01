@@ -18,6 +18,7 @@ from django.urls import path,include
 from onlinenotes import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +32,8 @@ urlpatterns = [
     path('getMessages/<str:room>/', views.getMessages, name='getMessages'),
 
     path('notes/',include('onlinenotes.urls')),
+    path('', include('social.apps.django_app.urls', namespace='social')),
+
 ]
 
 if settings.DEBUG:
