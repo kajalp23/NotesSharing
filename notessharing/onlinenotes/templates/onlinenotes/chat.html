@@ -80,18 +80,7 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0 mr-lg-2">
-              <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for...">
-                <span class="input-group-append">
-                  <button class="btn btn-primary" type="button">
-                    <i class="fa fa-search"></i>
-                  </button>
-                </span>
-              </div>
-            </form>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}" data-toggle="modal" data-target="#exampleModal">
               <i class="fa fa-fw fa-sign-out"></i>Logout</a>
@@ -114,9 +103,7 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fa fa-table"></i> Enter In a Room</div>
-          <div class="card-body">
-           
-              
+          <div class="card-body">    
                 <form id="post-form" method="POST" action="checkview">
                     {% csrf_token %}
                     <div class="row">
@@ -137,13 +124,8 @@
                     </div>  
                     <input type="submit" class="btn btn-primary btn-lg" value="Enter Room">
                       
-                </form>
-
-
-            
-          </div>
-
-         
+                </form>           
+          </div>        
         </div>
       </div>
       <!-- /.container-fluid-->
@@ -152,9 +134,9 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-4"></div>
-            <div class="col-sm-4">Copyright © Your Website 2018</div>
-            <div class="col-sm-3"></div>
-            <div class="col-sm-1"><a href="{% url 'chat' %}"><i class="fa fa-comments fa-2x" aria-hidden="true"></i></a></div>
+            <div class="col-sm-4">Copyright © Your Website 2021</div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2"><a href="{% url 'chat' %}"><i class="fa fa-comments fa-2x" aria-hidden="true"></i> Go To Discuss</a></div>
           </div>
           
         </div>
