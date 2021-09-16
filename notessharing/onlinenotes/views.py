@@ -1,5 +1,5 @@
 
-from onlinenotes.models import notes,Message,Room,notification
+from onlinenotes.models import notes,Message,Room,notification,contactus
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
@@ -80,8 +80,19 @@ def signupuser(request):
     return render(request,'onlinenotes/signup.html')
 
 def contact(request):
-    mapbox_access_token = 'pk.my_mapbox_access_token'
-    return render(request, 'onlinenotes/contact.html', 
+    if request.method=="POST":
+        fname = request.POST.get("fname")
+        lname = request.POST.get("lname")
+        email = request.POST.get("email")
+        msg = request.POST.get("msg")
+        cont = contactus(fname=fname,lname=lname,email=email,msg=msg)
+        cont.save()
+        mapbox_access_token = 'pk.my_mapbox_access_token'
+        return render(request, 'onlinenotes/contact.html', 
+                  { 'mapbox_access_token': mapbox_access_token ,'succmsg':"message send successfully"})
+    else:
+        mapbox_access_token = 'pk.my_mapbox_access_token'
+        return render(request, 'onlinenotes/contact.html', 
                   { 'mapbox_access_token': mapbox_access_token })
 
 def stueditprofile(request,id):

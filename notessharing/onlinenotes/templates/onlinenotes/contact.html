@@ -5,11 +5,95 @@
 <html>
   <head>
     <title>Contact</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="{% static 'assets/img/book.jpg' %}">
+    <!-- <link href="{% static 'assets/css/material-kit.css' %}" rel="stylesheet" /> -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
   </head>
-  <body>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.609076382138!2d74.59926881469522!3d16.845738688405255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc1237f52c65db5%3A0xa3535676176ded0a!2sWalchand%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1628674129476!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <body class="page-header header-filter" data-parallax="true" style="background-image: url('/static/assets/img/notes1.jpg'); background-repeat: no-repeat; background-size: 100%;">
+
+    <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+      <div class="container">
+        <div class="navbar-translate"><br>
+          <a class="navbar-brand" href="{% url 'home' %}" >
+            <span style="font-size:1.4rem; color: black;">NotesSharingClub</span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="row">
+
+      <div class="col-md-6"><br><br><br><br><br>
+        <iframe style="margin-left: 5%;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.609076382138!2d74.59926881469522!3d16.845738688405255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc1237f52c65db5%3A0xa3535676176ded0a!2sWalchand%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1628674129476!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+
+      <div class="col-md-5">
+        <div class="card-body">
+          <br>
+
+          {% if succmsg %}
+            <h5 style="color:green;">{{succmsg}}</h5>
+          {% endif %}
+
+          <h2>Contact Us</h2><br>
+
+          <form class="form" method="POST" action="" style="font-weight: bold;">
+              {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 pl-md-1">
+                            <div class="form-group">
+                                <label for="fname">First Name: </label>
+                                <input id="fname" type="text" class="form-control" placeholder="First name" name="fname" required="required" />
+                            </div>
+                        </div>                                
+                    
+                        <div class="col-md-6 pl-md-1">
+                            <div class="form-group">
+                                <label for="lname">Last Name: </label>
+                                <input id="lname" type="text" class="form-control" placeholder="Last name" name="lname" required="required" />
+                            </div>
+                        </div>
+                    </div>
+                    
+    
+                    <div class="row">
+    
+                        <div class="col-md-12 pl-md-1">
+                            <div class="form-group">
+                                <label for="email">Email ID: </label>
+                                <input id="email" type="email" class="form-control" placeholder="Email" name="email" required="required" />
+                            </div>
+                        </div>
+                        
+                    </div>
+    
+                    <div class="row">   
+                      <div class="col-md-12 pl-md-1">
+                          <div class="form-group">
+                              <label for="msg">Message: </label>
+                              <textarea row="4" col="4" id="msg" class="form-control" placeholder="Message" name="msg" required="required"></textarea>
+                          </div>
+                      </div>
+                      
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>

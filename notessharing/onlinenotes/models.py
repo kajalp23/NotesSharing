@@ -40,3 +40,9 @@ class notification(models.Model):
     url = models.URLField(null=True)
     msg = models.CharField(max_length=100)
     date = models.DateField(default=datetime.now)
+
+class contactus(models.Model):
+    fname = models.CharField(max_length=100)
+    lname = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    msg = models.CharField(max_length=300)
