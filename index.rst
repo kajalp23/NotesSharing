@@ -2,7 +2,7 @@
 
 Link : https://github.com/kajalp23/NotesSharing/
 
-**Project Timelines:**
+**Project Specifications:**
 
 .. list-table:: 
    :widths: 25 50
